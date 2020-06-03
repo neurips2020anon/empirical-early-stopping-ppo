@@ -4,6 +4,8 @@ Source code and reproduction steps for the paper _An Empirical Investigation of 
 
 ## Training
 
+Coming soon
+
 ## Evaluation
 
 The results of the experiments can be accessed in an interactive way using the following [Weights and Biases Project](https://app.wandb.ai/neurips2020-early-stopping/ppo-early-stopping/reports/Final-Report--VmlldzoxMjYxNjc).
