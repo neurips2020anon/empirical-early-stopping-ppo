@@ -14,5 +14,5 @@ Furthermore, the various plots used in the paper can be generated using the `All
 To quickly generate the various plots, we also provided pre-cached data corresponding to the `ppo-early-stopping` as the `evaluation/neurips2020_early_stopping_ppo_early_stopping` folder.
 To regenerate the data used for the plots, please remove the folder specified above and rerun the notebook. However, depending on the machine used, the data can take up to a few hours to generate.
 
-In case you have you have followed the "Training" section and generated your experiments and a different WANDB project, please edit the `wandb_entity_project` variable in the first cell of the notebook and re-run it to obtain the corresponding plots as in the paper.
+In case you have you have followed the "Training" section and generated your experiments under a different WANDB project, please edit the `wandb_entity_project` variable in the first cell of the notebook and re-run it to obtain the corresponding plots as in the paper.
 
