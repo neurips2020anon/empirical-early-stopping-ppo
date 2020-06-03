@@ -6,7 +6,7 @@ Source code and reproduction steps for the paper _An Empirical Investigation of 
 
 ## Evaluation
 
-The results of the experiments can be accessed in an interactive way using the following ![Weights and Biases Project](https://app.wandb.ai/neurips2020-early-stopping/ppo-early-stopping/reports/Final-Report--VmlldzoxMjYxNjc).
+The results of the experiments can be accessed in an interactive way using the following [Weights and Biases Project](https://app.wandb.ai/neurips2020-early-stopping/ppo-early-stopping/reports/Final-Report--VmlldzoxMjYxNjc).
 
 Furthermore, the various plots used in the paper can be generated using the `AllPlots` Jupyter Notebook located in the `evaluation` folder.
 To quickly generate the various plots, we also provided pre-cached data corresponding to the `ppo-early-stopping` as the `evaluation/neurips2020_early_stopping_ppo_early_stopping` folder.
