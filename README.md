@@ -1,6 +1,6 @@
-# An Empirical Investigation of Early Stopping inProximal Policy Optimization Algorithm
+# An Empirical Investigation of Early Stopping Optimizations in Proximal Policy Optimization
 
-Source code and reproduction step for the paper _An Empirical Investigation of Early Stopping in Proximal Policy Optimization Algorithm_, NeurIPS2020 submission
+Source code and reproduction steps for the paper _An Empirical Investigation of Early Stopping Optimizations in Proximal Policy Optimization_, NeurIPS 2020 submission.
 
 ## Training
 
@@ -13,3 +13,4 @@ To quickly generate the various plots, we also provided pre-cached data correspo
 To regenerate the data used for the plots, please remove the folder specified above and rerun the notebook. However, depending on the machine used, the data can take up to a few hours to generate.
 
 In case you have you have followed the "Training" section and generated your experiments and a different WANDB project, please edit the `wandb_entity_project` variable in the first cell of the notebook and re-run it to obtain the corresponding plots as in the paper.
+
