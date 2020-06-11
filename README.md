@@ -23,9 +23,9 @@ The API key is found [here](https://app.wandb.ai/settings).
 ### 3. Running the experiments
 
 We have provided the scripts that contained the 1210 experiments ran for this study as `all.sh`.
-Depending on your servers infrastructure, there might be a need to run only a few experiments a the time (for example, by first commenting the whole file, then progressively uncommenting and running only a few blocks at the same time.)
+Depending on your server infrastructure, there might be a need to run only a few experiments at the time (for example, by first commenting the whole file, then progressively uncommenting and running only a few blocks at the same time.)
 
-For a more streamlined training process, we suggest using the such AWS Batch service to automate the job execution.
+For a more streamlined training process, we suggest using services such AWS Batch, which automates the job execution.
 
 ## Evaluation
 
