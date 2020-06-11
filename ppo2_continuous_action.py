@@ -158,6 +158,7 @@ if __name__ == "__main__":
 
 args.features_turned_on = sum([args.kle_stop, args.kle_rollback, args.gae, args.norm_obs, args.norm_returns, args.norm_adv, args.anneal_lr, args.clip_vloss, args.pol_layer_norm])
 
+# TRY NOT TO MODIFY: setup the environment
 experiment_name = f"{args.gym_id}__{args.exp_name}__{args.seed}__{int(time.time())}"
 writer = SummaryWriter(f"runs/{experiment_name}")
 writer.add_text('hyperparameters', "|param|value|\n|-|-|\n%s" % (
@@ -169,6 +170,7 @@ if args.prod_mode:
     writer = SummaryWriter(f"/tmp/{experiment_name}")
 
 
+# TRY NOT TO MODIFY: seeding
 device = torch.device('cuda' if torch.cuda.is_available() and args.cuda else 'cpu')
 env = gym.make(args.gym_id)
 assert isinstance(env.action_space, Box), "only continuous action space is supported"
@@ -277,10 +279,11 @@ def discount_cumsum(x, dones, gamma):
 pg = Policy().to(device)
 vf = Value().to(device)
 
+# MODIFIED: Separate optimizer and learning rates
 pg_optimizer = optim.Adam(list(pg.parameters()), lr=args.policy_lr)
 v_optimizer = optim.Adam(list(vf.parameters()), lr=args.value_lr)
 
-# Initializing learning rate anneal scheduler when need
+# MODIFIED: Initializing learning rate anneal scheduler when need
 if args.anneal_lr:
     anneal_fn = lambda f: max(0, 1-f / args.total_timesteps)
     pg_lr_scheduler = optim.lr_scheduler.LambdaLR(pg_optimizer, lr_lambda=anneal_fn)
@@ -288,7 +291,7 @@ if args.anneal_lr:
 
 loss_fn = nn.MSELoss()
 
-# Training loop
+# TRY NOT TO MODIFY: start the game
 global_step = 0
 while global_step < args.total_timesteps:
     if args.capture_video:
@@ -304,7 +307,7 @@ while global_step < args.total_timesteps:
     dones = np.zeros((args.batch_size,))
     values = torch.zeros((args.batch_size,)).to(device)
 
-    # prepare the execution of the game.
+    # TRY NOT TO MODIFY: prepare the execution of the game.
     for step in range(args.batch_size):
         global_step += 1
         obs[step] = next_obs.copy()
@@ -317,9 +320,10 @@ while global_step < args.total_timesteps:
         actions[step] = action.data.cpu().numpy()[0]
         logprobs[step] = logproba.data.cpu().numpy()[0]
 
+        # SUGGESTION: Find a better way to constrain policy actions to action low and higher bounds
         clipped_action = np.clip(action.tolist(), env.action_space.low, env.action_space.high)[0]
 
-        # execute the game and log data.
+        # TRY NOT TO MODIFY: execute the game and log data.
         next_obs, rewards[step], dones[step], info = env.step(clipped_action)
         real_rewards += [info['real_reward']]
         next_obs = np.array(next_obs)
@@ -360,7 +364,8 @@ while global_step < args.total_timesteps:
         advantages = (advantages - advantages.mean()) / (advantages.std() + 1e-10)
 
     # Optimizaing policy network
-    logprobs = torch.Tensor(logprobs).to(device)
+    # First Tensorize all that is need to be so, clears up the loss computation part
+    logprobs = torch.Tensor(logprobs).to(device) # Called 2 times: during policy update and KL bound checked
     entropys = []
     target_pg = Policy().to(device)
     inds = np.arange(args.batch_size,)
@@ -416,7 +421,7 @@ while global_step < args.total_timesteps:
                 pg.load_state_dict(target_pg.state_dict())
                 break
 
-    # record rewards for plotting purposes
+    # TRY NOT TO MODIFY: record rewards for plotting purposes
     writer.add_scalar("losses/value_loss", v_loss.item(), global_step)
     writer.add_scalar("losses/policy_loss", policy_loss.item(), global_step)
     writer.add_scalar("losses/entropy", np.mean(entropys), global_step)
