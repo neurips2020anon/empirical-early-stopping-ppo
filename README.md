@@ -4,7 +4,28 @@ Source code and reproduction steps for the paper _An Empirical Investigation of 
 
 ## Training
 
-Coming soon
+### 1. Dependencies
+
+The list of python packages required to run the experiments can be found in the `requirements.txt`.
+We recommend creating a dedicated virtual environment with the Anaconda Python package manager.
+
+### 2. Weights And Biases (WANDB) Setup
+
+To log the experiments results and use the scripts provided in the `evaluation` folder to generate the corresponding plots, we
+recommend using the WANDB service.
+The `ppo2_continuous_action.py` already contains the necessary logic.
+All that is left to do is to set your WANDB API KEY as environment variable, namely with:
+```
+export WANDB_API_KEY=<your api key here>
+```
+The API key is found [here](https://app.wandb.ai/settings).
+
+### 3. Running the experiments
+
+We have provided the scripts that contained the 1210 experiments ran for this study as `all.sh`.
+Depending on your servers infrastructure, there might be a need to run only a few experiments a the time (for example, by first commenting the whole file, then progressively uncommenting and running only a few blocks at the same time.)
+
+For a more streamlined training process, we suggest using the such AWS Batch service to automate the job execution.
 
 ## Evaluation
 
@@ -15,4 +36,3 @@ To quickly generate the various plots, we also provided pre-cached data correspo
 To regenerate the data used for the plots, please remove the folder specified above and rerun the notebook. However, depending on the machine used, the data can take up to a few hours to generate.
 
 In case you have you have followed the "Training" section and generated your experiments under a different WANDB project, please edit the `wandb_entity_project` variable in the first cell of the notebook and re-run it to obtain the corresponding plots as in the paper.
-
